@@ -65,10 +65,19 @@
  };
 
 //  Change the Song Number to the Pause Button
+//  Add at ckpt13-pause buttom 
+var findParentByClassName = function(element, targetClass) {
+    if (element) {
+        var currentParent = element.parentElement;
+        while (currentParent.className !== targetClass && currentParent.className !== null) {
+            currentParent = currentParent.parentElement;
+        }
+        return currentParent;
+    }
+};
 
 
-
-//  getSongItem() Method
+//  getSongItem() Method - Add chpt 13 getSongItem() Method
 var getSongItem = function(element) {
     switch (element.className) {
         case 'album-song-button':
