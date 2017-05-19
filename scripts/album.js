@@ -64,8 +64,40 @@
      }
  };
 
-//  Change the Song Number to the Pause Button
+ /*
+   Change the Song Number to the Pause Button
+   Added findParentByClassName function at ckpt-13 pause button
+   Redone for ckpt-13 assignment
+ */
 
+ var findParentByClassName = function( element, targetClass)  {
+ if ( element ) {
+     
+     var currentParent = element.parentElement;
+         
+     // Checks to see if a parent exists. If it doesn't, then console.log a string that says "No parent found". 
+     if ( currentParent == null )  {         //  parent does not  exist  
+         return console.log("No parent found");
+     }
+     
+     /*
+     Shows a different string in console.log when it fails to find a parent with the given class name: 
+     "No parent found with that class name".
+     
+     currentParent IS found AND targetClass DOES NOT equal currentParent.className
+     This while loop will NOT exit until conditions have been met
+     */
+     
+     //while (currentParent.className !== targetClass && currentParent !== null) { 
+     while ( currentParent !== null  && currentParent.className !== targetClass )  { 
+         currentParent = currentParent.parentElement;  // Increment
+         if (currentParent === null) { 
+            return console.log(" No parent found with that class name");  
+         } 
+     }
+     return currentParent;
+ }    
+}
 
 
 //  getSongItem() Method
