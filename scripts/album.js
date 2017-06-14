@@ -3,7 +3,7 @@ var setSong = function(songNumber)  {
 	currentlyPlayingSongNumber = parseInt(songNumber);
 	currentSongFromAlbum = currentAlbum.songs[songNumber - 1];
 
-});
+};
 
 var getSongNumberCell = function(number)  {
 
@@ -59,8 +59,12 @@ var createSongRow = function(songNumber, songName, songLength) {
 		  $(this).html(playButtonTemplate);
           $('.main-controls .play-pause').html(playerBarPlayButton);  
 		  //currentlyPlayingSong = null;
-            currentlyPlayingSongNumber = null;
-            currentSongFromAlbum = null;
+            
+            // Added line below and commented out next two lines Ckpt-19-Assign.... I hope this works
+            setSong(null);
+            //currentlyPlayingSongNumber = null;
+            //currentSongFromAlbum = null;
+            
 	   } 
      };
  
@@ -155,6 +159,8 @@ var nextSong = function() {
     var lastSongNumber = currentlyPlayingSongNumber;
 
     // Set a new current song
+    // Update Ckpt-19-Assign... setSong
+    // setSong(currentSongIndex + 1); // Not sure if I want to risk it...
     currentlyPlayingSongNumber = currentSongIndex + 1;
     currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
 
@@ -166,9 +172,9 @@ var nextSong = function() {
     //var $lastSongNumberCell = $('.song-item-number[data-song-number="' + lastSongNumber + '"]');
     
     // Included Ckpt-19-Assignment
-    var $nextSongNumberCell = =  getSongNumberCell(currentlyPlayingSongNumber); 
+    var $nextSongNumberCell =  getSongNumberCell(currentlyPlayingSongNumber); 
     //$('.song-item-number[data-song-number="' + currentlyPlayingSongNumber + '"]');
-    var $lastSongNumberCell = =  getSongNumberCell(currentlyPlayingSongNumber); 
+    var $lastSongNumberCell =  getSongNumberCell(currentlyPlayingSongNumber); 
     //$('.song-item-number[data-song-number="' + lastSongNumber + '"]');
 
     $nextSongNumberCell.html(pauseButtonTemplate);
@@ -189,6 +195,8 @@ var previousSong = function() {
     var lastSongNumber = currentlyPlayingSongNumber;
 
     // Set a new current song
+    // Update Ckpt-19-Assign... setSong
+    // setSong(currentSongIndex + 1); // Not sure if I want to risk it...
     currentlyPlayingSongNumber = currentSongIndex + 1;
     currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
 
