@@ -256,6 +256,7 @@ var pauseButtonTemplate = '<a class="album-song-button"><span class="ion-pause">
  var currentAlbum = null;
  var currentlyPlayingSongNumber = null;
  var currentSongFromAlbum = null;
+ var currentSoundFile = null;
  var $previousButton = $('.main-controls .previous');
  var $nextButton = $('.main-controls .next');
 
