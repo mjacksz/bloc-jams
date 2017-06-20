@@ -152,12 +152,17 @@ var nextSong = function() {
     currentSongIndex++;
 
     if (currentSongIndex >= currentAlbum.songs.length) {
-        currentSongIndeongx = 0;
+        currentSongIndex = 0;
+        // Added by myself..testing only
+        //console.log("currentSongIndex is: " + currentSongIndex);
     }
 
     // Save the last song number before changing it
     //var lastSongNumber = currentlyPlayingSongNumber;
-    var lastSongNumber = currentSongIndex;
+    //var lastSongNumber = currentSongIndex;
+    // Next two lines added at suggestion of mentor
+    var lastSongNumber = currentSongIndex === 0 ?
+    currentAlbum.songs.length : currentSongIndex;
     // Added at suggestion of mentor
     //var $lastSongNumberCell = getSongNumberCell(lastSongNumber);
 
@@ -182,7 +187,8 @@ var nextSong = function() {
     var $lastSongNumberCell =  getSongNumberCell(lastSongNumber); 
     //$('.song-item-number[data-song-number="' + lastSongNumber + '"]');
     
-    console.log(lastSongNumber, $lastSongNumberCell);
+    // Added at suggestion of mentor... issue has been fixed
+    //console.log(lastSongNumber, $lastSongNumberCell);
     
     $nextSongNumberCell.html(pauseButtonTemplate);
     $lastSongNumberCell.html(lastSongNumber);
@@ -200,7 +206,9 @@ var previousSong = function() {
 
     // Save the last song number before changing it
     //var lastSongNumber = currentlyPlayingSongNumber;
-    var lastSongNumber = currentSongIndex + 2;
+    //var lastSongNumber = currentSongIndex + 2;
+    // Next line suggest by mentor
+    var lastSongNumber = currentSongIndex === currentAlbum.songs.length -1 ? 1 : currentSongIndex + 2;
     var $lastSongNumberCell = getSongNumberCell(lastSongNumber);
     
 
