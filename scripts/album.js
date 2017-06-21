@@ -1,9 +1,27 @@
 var setSong = function(songNumber)  {
+    
+    if (currentSoundFile) {
+        currentSoundFile.stop();
+     }
+ 
 
 	currentlyPlayingSongNumber = parseInt(songNumber);
 	currentSongFromAlbum = currentAlbum.songs[songNumber - 1];
-
+    // #1
+    currentSoundFile = new buzz.sound(currentSongFromAlbum.audioUrl, {
+         // #2
+         formats: [ 'mp3' ],
+         preload: true
+     });
+    
+     setVolume(currentVolume);
 };
+
+var setVolume = function(volume) {
+     if (currentSoundFile) {
+         currentSoundFile.setVolume(volume);
+     }
+ };
 
 var getSongNumberCell = function(number)  {
 
@@ -22,7 +40,10 @@ var createSongRow = function(songNumber, songName, songLength) {
       ;
  
      var $row = $(template);
-     
+    
+//
+//  clickHandler function
+//
      var clickHandler = function() {
         // clickHandler logic
        
@@ -39,6 +60,7 @@ var createSongRow = function(songNumber, songName, songLength) {
            //$('.song-item-number[data-song-number="' + currentlyPlayingSongNumber + '"]');
 		   //currentlyPlayingCell.html(currentlyPlayingSong);
            currentlyPlayingCell.html(currentlyPlayingSongNumber);
+           
 	   }
          
 	   //if (currentlyPlayingSong !== songNumber) {
@@ -48,7 +70,9 @@ var createSongRow = function(songNumber, songName, songLength) {
 		  //currentlyPlayingSong = songNumber;
           // Replaced with Ckpt-19-Assignment
           //currentlyPlayingSongNumber = songNumber;
-          setSong(songNumber); 
+          setSong(songNumber);
+          // Line below added Ckpt-20 clickHandler Refractor
+          currentSoundFile.play();
           // Removed next line - Ckpt-19 Assignment   
           //currentSongFromAlbum = currentAlbum.songs[songNumber - 1];
           updatePlayerBarSong();
@@ -56,15 +80,26 @@ var createSongRow = function(songNumber, songName, songLength) {
 	  // } else if (currentlyPlayingSong === songNumber) {
         } else if (currentlyPlayingSongNumber === songNumber) {
 		  // Switch from Pause -> Play button to pause currently playing song.
-		  $(this).html(playButtonTemplate);
-          $('.main-controls .play-pause').html(playerBarPlayButton);  
+		  //$(this).html(playButtonTemplate);
+          //$('.main-controls .play-pause').html(playerBarPlayButton);  
 		  //currentlyPlayingSong = null;
+          // Line below did not exist in this version os album.js added.
+          //currentSongfromAlbum = null;    
             
             // Added line below and commented out next two lines Ckpt-19-Assign.... I hope this works
-            setSong(null);
+            // setSong Commented out but not listed as to be removed from Ckpt-20 instructions - clickHandler
+            //setSong(null);
             //currentlyPlayingSongNumber = null;
             //currentSongFromAlbum = null;
-            
+            if (currentSoundFile.isPaused()) {
+                $(this).html(pauseButtonTemplate);
+                $('.main-controls .play-pause').html(playerBarPauseButton);
+                currentSoundFile.play();
+            } else {
+                $(this).html(playButtonTemplate);
+                $('.main-controls .play-pause').html(playerBarPlayButton);
+                currentSoundFile.pause();   
+            }
 	   } 
      };
  
@@ -168,7 +203,9 @@ var nextSong = function() {
 
     // Set a new current song
     // Update Ckpt-19-Assign... setSong
-    setSong(currentSongIndex + 1); // Not sure if I want to risk it...
+    setSong(currentSongIndex + 1);
+    // Line below added as part of Ckpt-20
+    currentSoundFile.play();
     //currentlyPlayingSongNumber = currentSongIndex + 1;
     //currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
 
@@ -214,7 +251,9 @@ var previousSong = function() {
 
     // Set a new current song
     // Update Ckpt-19-Assign... setSong
-    setSong(currentSongIndex + 1); 
+    setSong(currentSongIndex + 1);
+    // Added line below as part of Ckpt-20
+    currentSoundFile.play();
     //currentlyPlayingSongNumber = currentSongIndex + 1;
     //currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
 
@@ -257,6 +296,7 @@ var pauseButtonTemplate = '<a class="album-song-button"><span class="ion-pause">
  var currentlyPlayingSongNumber = null;
  var currentSongFromAlbum = null;
  var currentSoundFile = null;
+ var currentVolume = 80;
  var $previousButton = $('.main-controls .previous');
  var $nextButton = $('.main-controls .next');
 
