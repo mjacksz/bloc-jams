@@ -284,13 +284,17 @@ var previousSong = function() {
   var currentlyPlayingCell = getSongNumberCell(currentlyPlayingSongNumber);
   if ( currentSoundFile.isPaused())  {
       $(this).html(pauseButtonTemplate);
-      currentlyPlayingCell.html(playerBarPauseButton); 
+      // Commented out line below. Uses wrong button
+      //currentlyPlayingCell.html(playerBarPauseButton);
+      currentlyPlayingCell.html(pauseButtonTemplate);
       $(".main-controls .play-pause").html(playerBarPauseButton);                 
       currentSoundFile.play();
 
   } else {     
       $(this).html(playButtonTemplate);
-      currentlyPlayingCell.html(playerBarPlayButton);
+      // Commented out line below. Uses wrong button
+      // currentlyPlayingCell.html(playerBarPlayButton);
+      currentlyPlayingCell.html(playButtonTemplate);
       $(".main-controls  .play-pause").html(playerBarPlayButton);
       currentSoundFile.pause();
     }
