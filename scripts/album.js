@@ -118,6 +118,8 @@ var createSongRow = function(songNumber, songName, songLength) {
                 $(this).html(playButtonTemplate);
                 $('.main-controls .play-pause').html(playerBarPlayButton);
                 currentSoundFile.pause();   
+                // Added at checkpoint-21
+                updateSeekBarWhileSongPlays();
             }
 	   } 
      };
@@ -185,6 +187,7 @@ var createSongRow = function(songNumber, songName, songLength) {
      }
  };
 
+// updateSeekBarWhileSongPlays()
 // Added at checkpoint-21
  var updateSeekBarWhileSongPlays = function() {
      if (currentSoundFile) {
@@ -197,8 +200,7 @@ var createSongRow = function(songNumber, songName, songLength) {
              updateSeekPercentage($seekBar, seekBarFillRatio);
          });
      }
- };
-
+  };
 
 // Added at checkpoint-21
  var updateSeekPercentage = function($seekBar, seekBarFillRatio) {
@@ -212,6 +214,7 @@ var createSongRow = function(songNumber, songName, songLength) {
     $seekBar.find('.fill').width(percentageString);
     $seekBar.find('.thumb').css({left: percentageString});
  };
+
 
 // Added checkpoint-21
 var setupSeekBars = function() {
@@ -247,11 +250,11 @@ var setupSeekBars = function() {
              var seekBarFillRatio = offsetX / barWidth;
              
              // Added if statement for checkpoint-21
-             if ( $(this).parent().attr("class") == "seek-control" ) {
-                seek(seekBarFillRatio * currentSoundFile.getDuration());
-            } else {
-                setVolume(seekBarFillRatio);             
-            }
+            // if ( $(this).parent().attr("class") == "seek-control" ) {
+            //    seek(seekBarFillRatio * currentSoundFile.getDuration());
+            //} else {
+            //    setVolume(seekBarFillRatio);             
+            //}
              
              updateSeekPercentage($seekBar, seekBarFillRatio);
          });
@@ -261,8 +264,9 @@ var setupSeekBars = function() {
              $(document).unbind('mousemove.thumb');
              $(document).unbind('mouseup.thumb');
          });
-     });
- };
+     });   
+
+}; // End of setupSeekBars function
 
 // Github Ckpt-19 update-player-song.js
  var updatePlayerBarSong = function() {
