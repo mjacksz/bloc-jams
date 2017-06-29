@@ -383,10 +383,32 @@ var previousSong = function() {
 };
 
 
-//  Change the Song Number to the Pause Button
+
+// Added Ckpt-20-assignment-toggle #2
+
+ function togglePlayFromPlayerBar()  { 
+  var currentlyPlayingCell = getSongNumberCell(currentlyPlayingSongNumber);
+  if ( currentSoundFile.isPaused())  {
+      $(this).html(pauseButtonTemplate);
+      // Commented out line below. Uses wrong button
+      //currentlyPlayingCell.html(playerBarPauseButton);
+      currentlyPlayingCell.html(pauseButtonTemplate);
+      $(".main-controls .play-pause").html(playerBarPauseButton);                 
+      currentSoundFile.play();
+
+  } else {     
+      $(this).html(playButtonTemplate);
+      // Commented out line below. Uses wrong button
+      // currentlyPlayingCell.html(playerBarPlayButton);
+      currentlyPlayingCell.html(playButtonTemplate);
+      $(".main-controls  .play-pause").html(playerBarPlayButton);
+      currentSoundFile.pause();
+    }
+ }
+
+
+//  Change the ?? to the Pause Button
 //  Add at ckpt13-pause buttom 
-
-
 
 //var songListContainer = document.getElementsByClassName('album-view-song-list')[0];
 //var songRows = document.getElementsByClassName('album-view-song-item');
@@ -406,10 +428,14 @@ var pauseButtonTemplate = '<a class="album-song-button"><span class="ion-pause">
 
  var $previousButton = $('.main-controls .previous');
  var $nextButton = $('.main-controls .next');
+ // Added Ckpt-20-assignment-toggle #1
+ var $mainControls = $('.main-controls .play-pause');
 
  $(document).ready(function() {    
      setCurrentAlbum(albumPicasso);
      setupSeekBars();
      $previousButton.click(previousSong);
      $nextButton.click(nextSong);
+     // Added Ckpt-20-assignment-toggle #1
+     $mainControls.click(togglePlayFromPlayerBar);
  });
