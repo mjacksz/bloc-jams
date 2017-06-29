@@ -202,6 +202,7 @@ var createSongRow = function(songNumber, songName, songLength) {
      }
   };
 
+
 // Added at checkpoint-21
  var updateSeekPercentage = function($seekBar, seekBarFillRatio) {
     var offsetXPercent = seekBarFillRatio * 100;
@@ -238,7 +239,8 @@ var setupSeekBars = function() {
          // #5
          updateSeekPercentage($(this), seekBarFillRatio);
      });
-         // #7
+
+          // #7
      $seekBars.find('.thumb').mousedown(function(event) {
          // #8
          var $seekBar = $(this).parent();
@@ -265,6 +267,10 @@ var setupSeekBars = function() {
              $(document).unbind('mouseup.thumb');
          });
      });   
+    
+
+
+ 
 
 }; // End of setupSeekBars function
 
