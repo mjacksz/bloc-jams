@@ -192,16 +192,36 @@ var createSongRow = function(songNumber, songName, songLength) {
  var updateSeekBarWhileSongPlays = function() {
      if (currentSoundFile) {
          // #10
-         currentSoundFile.bind('timeupdate', function(event) {
+         currentSoundFile.bind('timeupdate', function(event) {             
+         
              // #11
              var seekBarFillRatio = this.getTime() / this.getDuration();
              var $seekBar = $('.seek-control .seek-bar');
- 
+             var currentTime = currentSoundFile.getTime();
              updateSeekPercentage($seekBar, seekBarFillRatio);
-         });
+             setCurrentTimeInPlayerBar( currentTime  )
+         })
      }
-  };
+ }
+     
+     // Ckpt-21 Assignment #1
+     function  setCurrentTimeInPlayerBar(currentTime)  {
+      console.log(currentTime);
+     $(".current-time").text( currentTime )  
+     }
 
+  /*                                 
+    function  setTotalTimeInPlayerBar(totalTime)  {
+  
+    $(".total-time").text(function(event)   {
+     songLength.kkkkk;       
+    }
+    
+                  }
+ */
+                          
+                          
+                          
 // Added at checkpoint-21
  var updateSeekPercentage = function($seekBar, seekBarFillRatio) {
     var offsetXPercent = seekBarFillRatio * 100;
