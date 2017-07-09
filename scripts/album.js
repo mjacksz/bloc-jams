@@ -42,7 +42,7 @@ var createSongRow = function(songNumber, songName, songLength) {
         '<tr class="album-view-song-item">'    
       + '  <td class="song-item-number" data-song-number="' + songNumber + '">' + songNumber + '</td>' 
       + '  <td class="song-item-title">' + songName + '</td>'
-      + '  <td class="song-item-duration">' + songLength + '</td>'
+      + '  <td class="song-item-duration">' + filterTimeCode(songLength) + '</td>'
       + '</tr>'
       ;
  
@@ -197,31 +197,100 @@ var createSongRow = function(songNumber, songName, songLength) {
              // #11
              var seekBarFillRatio = this.getTime() / this.getDuration();
              var $seekBar = $('.seek-control .seek-bar');
-             var currentTime = currentSoundFile.getTime();
+             
+             // Ckpt-21 #1
+             var currentTime = currentSoundFile.getTime();           
+             
              updateSeekPercentage($seekBar, seekBarFillRatio);
+             
+             // Ckpt-21 #4
+             //var startTime = currentTime;
+             //var startTime = filterTimeCode(currentTime);
+             
              setCurrentTimeInPlayerBar( currentTime  )
+             
+             // Ckpt-21 #2
+             var totalTime = currentSoundFile.getDuration();
+             
+             
+             // Ckpt-21 #4
+             // Call filterTimeCode() format time MM:SS
+              //var finishTime = filterTimeCode(totalTime);   ///////////////
+              //setTotalTimeInPlayerBar( finshTime ); /////////////////////////
+             
+             setTotalTimeInPlayerBar( totalTime );
+             
+             //var startTime = filterTimeCode(currentTime)
+             
          })
      }
  }
-     
-     // Ckpt-21 Assignment #1
-     function  setCurrentTimeInPlayerBar(currentTime)  {
-      console.log(currentTime);
-     $(".current-time").text( currentTime )  
-     }
 
-  /*                                 
+ //
+ // Ckpt 21 Assignments
+ //
+ 
+     // Ckpt-21 Assignment #1
+     // This works...current time changes as song progresses 
+     // Time conversion to MM:SS format still needs to be done
+     // filterTimeCode function ? pass currentTime in MM:SS format
+     function setCurrentTimeInPlayerBar(currentTime)  {
+        
+         // Ckpt-21 #3
+         //filterTimeCode(currentTime);
+         console.log(currentTime);
+        $(".current-time").text( filterTimeCode(currentTime) )  
+        }
+
+    // Ckpt-21 Assignment #2
+    // This works... Time duration on createSongRow function and
+    // player bar total duration are the same AND change with chaning songs.
+    // Time conversion to MM:SS format still needs to be done
     function  setTotalTimeInPlayerBar(totalTime)  {
+        //var songLength = ".song-item-duration";
+        
+        
+        // Ckpt-21 #4 - Set time format 
+        //  filterTimeCode(totalTime);  
+        console.log( totalTime );
+        $(".total-time").text( filterTimeCode(totalTime) ) 
+        }
+
+
+
+
+
+// Ckpt-21 Assignment #3 - filterTimeCode    
+// Format time MM:SS
+
+function    filterTimeCode(timeInSeconds)  {
+//var startTime = function    filterTimeCode(timeInSeconds)  {   
   
-    $(".total-time").text(function(event)   {
-     songLength.kkkkk;       
-    }
+  // ++++  Use the parseFloat() method to get the seconds in number form  +++++
+  var newTimeInSeconds = parseFloat(timeInSeconds); //.toFixed(2); ? ? - not yet
+ 
+  //  ++++ Store variables for whole minutes and whole seconds  +++++
+  // Seperate interger from decimal 
+  //var Q = Math.floor(parseFloat(timeInSeconds) / 60);  // Interger only
+  //var X = Math.floor(parseFloat(timeInSeconds) % 60);  // Remainder only
+  
+  var mins = Math.floor( newTimeInSeconds / 60);  // number only
+  var secs = Math.floor( newTimeInSeconds % 60 ); // remainder only
+ 
+  //if (secs < 10 ) {    // fix no zero preceeding remainder < then 10 ... cheezy
+    //X.toFixed(2); need better understanding of the syntax, is there a toFixed(-2) 
+ //  secs = ("0" + secs); // This is dumb but it works...sad
+  //}
+ 
+ // See var result = filterTimeCode code on function call 
+ //return (mins  + ":" + secs);  // Why have this ? ?
+ // Line below suggested by Mentor - Ckpt-21 Assignment #3
     
-                  }
- */
-                          
-                          
-                          
+  return (mins  + ":" + (secs < 10 ? "0" + secs : secs));  
+}
+  
+
+
 // Added at checkpoint-21
  var updateSeekPercentage = function($seekBar, seekBarFillRatio) {
     var offsetXPercent = seekBarFillRatio * 100;
@@ -410,16 +479,12 @@ var previousSong = function() {
   var currentlyPlayingCell = getSongNumberCell(currentlyPlayingSongNumber);
   if ( currentSoundFile.isPaused())  {
       $(this).html(pauseButtonTemplate);
-      // Commented out line below. Uses wrong button
-      //currentlyPlayingCell.html(playerBarPauseButton);
       currentlyPlayingCell.html(pauseButtonTemplate);
       $(".main-controls .play-pause").html(playerBarPauseButton);                 
       currentSoundFile.play();
 
   } else {     
       $(this).html(playButtonTemplate);
-      // Commented out line below. Uses wrong button
-      // currentlyPlayingCell.html(playerBarPlayButton);
       currentlyPlayingCell.html(playButtonTemplate);
       $(".main-controls  .play-pause").html(playerBarPlayButton);
       currentSoundFile.pause();
@@ -427,14 +492,11 @@ var previousSong = function() {
  }
 
 
-//  Change the ?? to the Pause Button
+
 //  Add at ckpt13-pause buttom 
 
-//var songListContainer = document.getElementsByClassName('album-view-song-list')[0];
-//var songRows = document.getElementsByClassName('album-view-song-item');
-
-var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></span></a>';
-var pauseButtonTemplate = '<a class="album-song-button"><span class="ion-pause"></span></a>';
+ var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></span></a>';
+ var pauseButtonTemplate = '<a class="album-song-button"><span class="ion-pause"></span></a>';
  var playerBarPlayButton = '<span class="ion-play"></span>';
  var playerBarPauseButton = '<span class="ion-pause"></span>';
 
