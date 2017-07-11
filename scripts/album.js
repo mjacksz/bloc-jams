@@ -447,6 +447,7 @@ var setupSeekBars = function() {
 }; // End of setupSeekBars function
 
 // Github Ckpt-19 update-player-song.js
+//  ++? 
  var updatePlayerBarSong = function() {
 
     $('.currently-playing .song-name').text(currentSongFromAlbum.title);
@@ -454,6 +455,14 @@ var setupSeekBars = function() {
     $('.currently-playing .artist-song-mobile').text(currentSongFromAlbum.title + " - " + currentAlbum.artist);
     $('.main-controls .play-pause').html(playerBarPauseButton);
 
+    // from updateSeekBarWhileSongPlays function
+    // Ckpt-21 #2
+    //var totalTime = currentSoundFile.getDuration();
+    var totalTime = currentSoundFile.duration;                     
+     
+    // Ckpt-21 #4
+    setTotalTimeInPlayerBar( totalTime );
+         
 };
 
  var trackIndex = function(album, song) {

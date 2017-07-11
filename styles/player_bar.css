@@ -113,22 +113,26 @@
      height: 0.5rem;
      width: 0.5rem;
      background-color: white;
-     left: 0;
+    /* left: 0; */
      top: 50%;
      /* #1 */
      margin-left: -0.25rem;
      margin-top: -0.25rem;
      border-radius: 50%;
-     cursor: pointer;
-     -webkit-transition: all 100ms ease-in-out;
-        -moz-transition: all 100ms ease-in-out;
-             // Commented out line below. checkpoint-21          
-             //transition: all 100ms ease-in-out;
-             // Added line below at checkpoint-21
-             transition: width 100ms ease-in-out,
-                height 100ms ease-in-out,
-                margin-top 100ms ease-in-out,
-                margin-left 100ms ease-in-out;
+     cursor: pointer;   
+     
+     
+      -webkit-transition: all 100ms ease-in-out; 
+      -moz-transition: all 100ms ease-in-out; 
+             
+            /* Commented out line below. checkpoint-21    */      
+            /*  transition: all 100ms ease-in-out;  */
+     
+    /* Added line below at checkpoint-21   */     
+     transition: width 100ms ease-in-out,
+     height 100ms ease-in-out,
+     margin-top 100ms ease-in-out,
+     margin-left 100ms ease-in-out;
  }
  
  .seek-bar:hover .thumb {
