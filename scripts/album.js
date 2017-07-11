@@ -283,6 +283,7 @@ var onHover = function(event) {
 
 // updateSeekBarWhileSongPlays()
 // Added at checkpoint-21
+// ++?
  var updateSeekBarWhileSongPlays = function() {
      if (currentSoundFile) {
          // #10
@@ -303,10 +304,10 @@ var onHover = function(event) {
              setCurrentTimeInPlayerBar( currentTime  )
              
              // Ckpt-21 #2
-             var totalTime = currentSoundFile.getDuration();
+             // //var totalTime = currentSoundFile.getDuration();
                          
              // Ckpt-21 #4
-             setTotalTimeInPlayerBar( totalTime );
+             // //setTotalTimeInPlayerBar( totalTime );
     
          })
      }
@@ -458,7 +459,7 @@ var setupSeekBars = function() {
     // from updateSeekBarWhileSongPlays function
     // Ckpt-21 #2
     //var totalTime = currentSoundFile.getDuration();
-    var totalTime = currentSoundFile.duration;                     
+    var totalTime = currentSongFromAlbum.duration;                     
      
     // Ckpt-21 #4
     setTotalTimeInPlayerBar( totalTime );
