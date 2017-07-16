@@ -389,6 +389,7 @@ function    filterTimeCode(timeInSeconds)  {
 
 
 
+
 // Added at checkpoint-21
  var updateSeekPercentage = function($seekBar, seekBarFillRatio) {
     var offsetXPercent = seekBarFillRatio * 100;
@@ -425,7 +426,8 @@ var setupSeekBars = function() {
          // #5
          updateSeekPercentage($(this), seekBarFillRatio);
      });
-         // #7
+//};
+          // #7
      $seekBars.find('.thumb').mousedown(function(event) {
          // #8
          var $seekBar = $(this).parent();
@@ -434,7 +436,16 @@ var setupSeekBars = function() {
          $(document).bind('mousemove.thumb', function(event){
              var offsetX = event.pageX - $seekBar.offset().left;
              var barWidth = $seekBar.width();
-             var seekBarFillRatio = offsetX / barWidth;             
+             var seekBarFillRatio = offsetX / barWidth;
+             
+             // Added if statement for checkpoint-21
+             //if ( $(this).parent().attr("class") == "seek-control" ) {
+             if ( $seekBar.parent().attr("class") == "seek-control" ) {
+                seek(seekBarFillRatio * currentSoundFile.getDuration());
+            } else {
+                setVolume(seekBarFillRatio);             
+            }
+             
              updateSeekPercentage($seekBar, seekBarFillRatio);
          });
  
@@ -444,6 +455,10 @@ var setupSeekBars = function() {
              $(document).unbind('mouseup.thumb');
          });
      });   
+    
+
+
+ 
 
 }; // End of setupSeekBars function
 
