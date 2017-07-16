@@ -434,7 +434,13 @@ var setupSeekBars = function() {
          $(document).bind('mousemove.thumb', function(event){
              var offsetX = event.pageX - $seekBar.offset().left;
              var barWidth = $seekBar.width();
-             var seekBarFillRatio = offsetX / barWidth;             
+             var seekBarFillRatio = offsetX / barWidth;
+             if ($seekBar.parent().attr('class') == 'seek-control') {
+                seek(seekBarFillRatio * currentSoundFile.getDuration());   
+            } else {
+                setVolume(seekBarFillRatio);
+            }
+             
              updateSeekPercentage($seekBar, seekBarFillRatio);
          });
  
