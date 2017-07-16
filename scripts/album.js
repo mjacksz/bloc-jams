@@ -239,7 +239,7 @@ var setupSeekBars = function() {
          // #5
          updateSeekPercentage($(this), seekBarFillRatio);
      });
-
+//};
           // #7
      $seekBars.find('.thumb').mousedown(function(event) {
          // #8
@@ -252,11 +252,12 @@ var setupSeekBars = function() {
              var seekBarFillRatio = offsetX / barWidth;
              
              // Added if statement for checkpoint-21
-            // if ( $(this).parent().attr("class") == "seek-control" ) {
-            //    seek(seekBarFillRatio * currentSoundFile.getDuration());
-            //} else {
-            //    setVolume(seekBarFillRatio);             
-            //}
+             //if ( $(this).parent().attr("class") == "seek-control" ) {
+             if ( $seekBar.parent().attr("class") == "seek-control" ) {
+                seek(seekBarFillRatio * currentSoundFile.getDuration());
+            } else {
+                setVolume(seekBarFillRatio);             
+            }
              
              updateSeekPercentage($seekBar, seekBarFillRatio);
          });
