@@ -51,39 +51,14 @@ var createSongRow = function(songNumber, songName, songLength) {
 //
 //  clickHandler function
 //
-     var clickHandler = function() {
-       var songNumber = parseInt($(this).attr('data-song-number'));   
-       if (currentlyPlayingSongNumber !== null) { 
-           var currentlyPlayingCell = getSongNumberCell(currentlyPlayingSongNumber);
-           currentlyPlayingCell.html(currentlyPlayingSongNumber);       
-	   }
-
-/*
-    clickHandler function ...  REMOVE AFTER CERTAIN 
-    
-    var clickHandler = function() {
-        // clickHandler logic
-       
-       //var songNumber = $(this).attr('data-song-number');
-       var songNumber = parseInt($(this).attr('data-song-number'));
-	   //if (currentlyPlayingSong !== null) {
-       if (currentlyPlayingSongNumber !== null) { 
-		  // Revert to song number for currently playing song because user started playing new song.
-		  //var currentlyPlayingCell = $('.song-item-number[data-song-number="' + currentlyPlayingSong + '"]');
-          
-           //var currentlyPlayingCell = $('.song-item-number[data-song-number="' + currentlyPlayingSongNumber + '"]');
-           var currentlyPlayingCell = getSongNumberCell(currentlyPlayingSongNumber);
-           
-           //$('.song-item-number[data-song-number="' + currentlyPlayingSongNumber + '"]');
-		   //currentlyPlayingCell.html(currentlyPlayingSong);
-           currentlyPlayingCell.html(currentlyPlayingSongNumber);
-           
-	   }
-    
-*/
-         
+var clickHandler = function() {
+    var songNumber = parseInt($(this).attr('data-song-number'));   
+    if (currentlyPlayingSongNumber !== null) { 
+        var currentlyPlayingCell = getSongNumberCell(currentlyPlayingSongNumber);
+        currentlyPlayingCell.html(currentlyPlayingSongNumber);       
+    } 
 	  
-       if (currentlyPlayingSongNumber !== songNumber) {
+    if (currentlyPlayingSongNumber !== songNumber) {
 		  // Switch from Play -> Pause button to indicate new song is playing.		  
           $(this).html(pauseButtonTemplate);		  
           setSong(songNumber);
@@ -97,43 +72,8 @@ var createSongRow = function(songNumber, songName, songLength) {
           $volumeFill.width(currentVolume + '%');
           $volumeThumb.css({left: currentVolume + '%'});
           $(this).html(pauseButtonTemplate);
-          updatePlayerBarSong();
-           
-           
-/*
-
-        Second part of click handler functionssss ....
-        
-        	   //if (currentlyPlayingSong !== songNumber) {
-       if (currentlyPlayingSongNumber !== songNumber) {
-		  // Switch from Play -> Pause button to indicate new song is playing.
-		  // Moved lline for before updatePlayerBarSong() - GitHub doc shows it moved.
-          $(this).html(pauseButtonTemplate);
-		  //currentlyPlayingSong = songNumber;
-          // Replaced with Ckpt-19-Assignment
-          //currentlyPlayingSongNumber = songNumber;
-          setSong(songNumber);
-          // Line below added Ckpt-20 clickHandler Refractor
-          currentSoundFile.play();
-          // Removed at checkpoint-21
-          updateSeekBarWhileSongPlays();
-          // Removed next line - Ckpt-19 Assignment   
-          //currentSongFromAlbum = currentAlbum.songs[songNumber - 1];
-           
-          // Added lines for checkpoint-21
-          var $volumeFill = $('.volume .fill');
-          var $volumeThumb = $('.volume .thumb');
-          $volumeFill.width(currentVolume + '%');
-          $volumeThumb.css({left: currentVolume + '%'});
-          $(this).html(pauseButtonTemplate);
-          updatePlayerBarSong();
-           
-        
-        
-*/
-           
-	 
-        } else if (currentlyPlayingSongNumber === songNumber) {
+          updatePlayerBarSong();         	 
+    } else if (currentlyPlayingSongNumber === songNumber) {
 		  // Switch from Pause -> Play button to pause currently playing song.
             if (currentSoundFile.isPaused()) {
                 $(this).html(pauseButtonTemplate);
@@ -149,40 +89,6 @@ var createSongRow = function(songNumber, songName, songLength) {
                 updateSeekBarWhileSongPlays();
             }
 	   }  //  End of else if (currentlyPlayingSongNumber === songNumber)
-         
-/*
-        Part 3 of clickHandler - else if (currentlyPlayingSongNumber === songNumber)
-        
-        	  // } else if (currentlyPlayingSong === songNumber) {
-        } else if (currentlyPlayingSongNumber === songNumber) {
-		  // Switch from Pause -> Play button to pause currently playing song.
-		  //$(this).html(playButtonTemplate);
-          //$('.main-controls .play-pause').html(playerBarPlayButton);  
-		  //currentlyPlayingSong = null;
-          // Line below did not exist in this version os album.js added.
-          //currentSongfromAlbum = null;    
-            
-            // Added line below and commented out next two lines Ckpt-19-Assign.... I hope this works
-            // setSong Commented out but not listed as to be removed from Ckpt-20 instructions - clickHandler
-            //setSong(null);
-            //currentlyPlayingSongNumber = null;
-            //currentSongFromAlbum = null;
-            if (currentSoundFile.isPaused()) {
-                $(this).html(pauseButtonTemplate);
-                $('.main-controls .play-pause').html(playerBarPauseButton);
-                currentSoundFile.play();
-                // Added at checkpoint-21
-                updateSeekBarWhileSongPlays();
-            } else {
-                $(this).html(playButtonTemplate);
-                $('.main-controls .play-pause').html(playerBarPlayButton);
-                currentSoundFile.pause();   
-                // Added at checkpoint-21
-                updateSeekBarWhileSongPlays();
-            }
-	   }  //  End of else if (currentlyPlayingSongNumber === songNumber)
-*/
-    
      }; // End of clickHandler function
  
      var onHover = function(event) {
@@ -194,28 +100,8 @@ var createSongRow = function(songNumber, songName, songLength) {
          
      };
     
-/*
-    Part 1 of onHover ... REMOVE WHEN CERTAIN
     
-var onHover = function(event) {
-         
-        // Placeholder for function logic
-        // Code below from Github:Bloc - Not sure if needed
-        //var songNumber = parseInt($(this).attr('data-song-number'));
-        var songNumberCell = $(this).find('.song-item-number'); 
-        var songNumber = parseInt(songNumberCell.attr('data-song-number'));         
-         
-        //if (songNumber !== currentlyPlayingSong) {
-         if (songNumber !== currentlyPlayingSongNumber) {
-            songNumberCell.html(playButtonTemplate);
-        }
-         
-     };
-     
-*/
-    
-    
-    // Noticed something with seek bar for song...
+    // offHover function
      var offHover = function(event) {   
         var songNumberCell = $(this).find('.song-item-number'); 
         var songNumber = parseInt(songNumberCell.attr('data-song-number')); 
@@ -224,25 +110,6 @@ var onHover = function(event) {
         }
       console.log("songNumber type is " + typeof songNumber + "\n and currentlyPlayingSongNumber type is " + typeof currentlyPlayingSongNumber);   
      };
-    
-/*
-    Original - offHover = function(event) {
-
-        var offHover = function(event) {
-         // Placeholder for function logic
-         // Code below from Hithub:Bloc - Not sure if needed
-        //var songNumber = parseInt($(this).attr('data-song-number'));
-        var songNumberCell = $(this).find('.song-item-number'); 
-        var songNumber = parseInt(songNumberCell.attr('data-song-number')); 
-
-        //if (songNumber !== currentlyPlayingSong) {
-        if (songNumber !== currentlyPlayingSongNumber) { 
-            songNumberCell.html(songNumber);
-        }
-      console.log("songNumber type is " + typeof songNumber + "\n and currentlyPlayingSongNumber type is " + typeof currentlyPlayingSongNumber);   
-     };
-
-*/
     
     
      // #1
@@ -283,7 +150,6 @@ var onHover = function(event) {
 
 // updateSeekBarWhileSongPlays()
 // Added at checkpoint-21
-// ++?
  var updateSeekBarWhileSongPlays = function() {
      if (currentSoundFile) {
          // #10
@@ -294,20 +160,9 @@ var onHover = function(event) {
              var $seekBar = $('.seek-control .seek-bar');
              
              // Ckpt-21 #1
-             var currentTime = currentSoundFile.getTime();           
-             
-             updateSeekPercentage($seekBar, seekBarFillRatio);
-             
-             // Ckpt-21 #4           
-             //var startTime = filterTimeCode(currentTime);
-             
+             var currentTime = currentSoundFile.getTime();                       
+             updateSeekPercentage($seekBar, seekBarFillRatio);                     
              setCurrentTimeInPlayerBar( currentTime  )
-             
-             // Ckpt-21 #2
-             // //var totalTime = currentSoundFile.getDuration();
-                         
-             // Ckpt-21 #4
-             // //setTotalTimeInPlayerBar( totalTime );
     
          })
      }
@@ -335,9 +190,6 @@ var onHover = function(event) {
         }
 
 
-
-
-
 // Ckpt-21 Assignment #3 - filterTimeCode    
 // Format time MM:SS
 
@@ -354,39 +206,6 @@ function    filterTimeCode(timeInSeconds)  {
     // Line below suggested by Mentor - Ckpt-21 Assignment #3    
   return (mins  + ":" + (secs < 10 ? "0" + secs : secs));  
 }
-  
-/*
-    timeFilterCode Function original
-  
- function    filterTimeCode(timeInSeconds)  {
-//var startTime = function    filterTimeCode(timeInSeconds)  {   
-  
-  // ++++  Use the parseFloat() method to get the seconds in number form  +++++
-  var newTimeInSeconds = parseFloat(timeInSeconds); //.toFixed(2); ? ? - not yet
- 
-  //  ++++ Store variables for whole minutes and whole seconds  +++++
-  // Seperate interger from decimal 
-  //var Q = Math.floor(parseFloat(timeInSeconds) / 60);  // Interger only
-  //var X = Math.floor(parseFloat(timeInSeconds) % 60);  // Remainder only
-  
-  var mins = Math.floor( newTimeInSeconds / 60);  // number only
-  var secs = Math.floor( newTimeInSeconds % 60 ); // remainder only
- 
-  //if (secs < 10 ) {    // fix no zero preceeding remainder < then 10 ... cheezy
-    //X.toFixed(2); need better understanding of the syntax, is there a toFixed(-2) 
- //  secs = ("0" + secs); // This is dumb but it works...sad
-  //}
- 
- // See var result = filterTimeCode code on function call 
- //return (mins  + ":" + secs);  // Why have this ? ?
- // Line below suggested by Mentor - Ckpt-21 Assignment #3
-    
-  return (mins  + ":" + (secs < 10 ? "0" + secs : secs));  
-} 
-  
-  
-*/
-
 
 
 // Added at checkpoint-21
@@ -454,22 +273,15 @@ var setupSeekBars = function() {
 }; // End of setupSeekBars function
 
 // Github Ckpt-19 update-player-song.js
-//  ++? 
  var updatePlayerBarSong = function() {
-
     $('.currently-playing .song-name').text(currentSongFromAlbum.title);
     $('.currently-playing .artist-name').text(currentAlbum.artist);
     $('.currently-playing .artist-song-mobile').text(currentSongFromAlbum.title + " - " + currentAlbum.artist);
     $('.main-controls .play-pause').html(playerBarPauseButton);
-
-    // from updateSeekBarWhileSongPlays function
     // Ckpt-21 #2
-    //var totalTime = currentSoundFile.getDuration();
-    var totalTime = currentSongFromAlbum.duration;                     
-     
+    var totalTime = currentSongFromAlbum.duration;                       
     // Ckpt-21 #4
-    setTotalTimeInPlayerBar( totalTime );
-         
+    setTotalTimeInPlayerBar( totalTime );        
 };
 
  var trackIndex = function(album, song) {
@@ -508,67 +320,11 @@ var nextSong = function() {
     $lastSongNumberCell.html(lastSongNumber);
 };  // End of nextSong function
 
-/*
-    Original - nextSong function
-    
-  var nextSong = function() {
-    var currentSongIndex = trackIndex(currentAlbum, currentSongFromAlbum);
-    // Note that we're _incrementing the song here
-    currentSongIndex++;
-    if (currentSongIndex >= currentAlbum.songs.length) {
-        currentSongIndex = 0;
-        // Added by myself..testing only
-        //console.log("currentSongIndex is: " + currentSongIndex);
-    }
-
-    // Save the last song number before changing it
-    //var lastSongNumber = currentlyPlayingSongNumber;
-    //var lastSongNumber = currentSongIndex;
-    // Next two lines added at suggestion of mentor
-    var lastSongNumber = currentSongIndex === 0 ?
-    currentAlbum.songs.length : currentSongIndex;
-    // Added at suggestion of mentor
-    //var $lastSongNumberCell = getSongNumberCell(lastSongNumber);
-
-    // Set a new current song
-    // Update Ckpt-19-Assign... setSong
-    setSong(currentSongIndex + 1);
-    // Line below added as part of Ckpt-20
-    currentSoundFile.play();
-    // Added Checkpoint-21
-    updateSeekBarWhileSongPlays();
-    //currentlyPlayingSongNumber = currentSongIndex + 1;
-    //currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
-
-    // Update the Player Bar information
-    updatePlayerBarSong();
-    //if ( )
-    
-    //var $nextSongNumberCell = $('.song-item-number[data-song-number="' + currentlyPlayingSongNumber + '"]');
-    //var $lastSongNumberCell = $('.song-item-number[data-song-number="' + lastSongNumber + '"]');
-    
-    //console.log(lastSongNumber, currentlyPlayingSongNumber);
-    
-    // Included Ckpt-19-Assignment
-    var $nextSongNumberCell =  getSongNumberCell(currentlyPlayingSongNumber); 
-    //$('.song-item-number[data-song-number="' + currentlyPlayingSongNumber + '"]');
-    var $lastSongNumberCell =  getSongNumberCell(lastSongNumber); 
-    //$('.song-item-number[data-song-number="' + lastSongNumber + '"]');
-    
-    // Added at suggestion of mentor... issue has been fixed
-    //console.log(lastSongNumber, $lastSongNumberCell);
-    
-    $nextSongNumberCell.html(pauseButtonTemplate);
-    $lastSongNumberCell.html(lastSongNumber);
-};  // End of nextSong function
-  
-  
-*/
 
 // Added Hithub previous-song.js - Not sure where in file this should go?
 var previousSong = function() {
     var currentSongIndex = trackIndex(currentAlbum, currentSongFromAlbum);
-    // Note that we're _decrementing the index here
+    // Note that we're --decrementing the index here
     currentSongIndex--;
 
     if (currentSongIndex < 0) {
@@ -598,58 +354,6 @@ var previousSong = function() {
     $previousSongNumberCell.html(pauseButtonTemplate);
     $lastSongNumberCell.html(lastSongNumber);
 };
-
-/*
-    Original previousSong function
-    
-  var previousSong = function() {
-    var currentSongIndex = trackIndex(currentAlbum, currentSongFromAlbum);
-    // Note that we're _decrementing the index here
-    currentSongIndex--;
-
-    if (currentSongIndex < 0) {
-        currentSongIndex = currentAlbum.songs.length - 1;
-    }
-
-    // Save the last song number before changing it
-    //var lastSongNumber = currentlyPlayingSongNumber;
-    //var lastSongNumber = currentSongIndex + 2;
-    // Next line suggest by mentor
-    var lastSongNumber = currentSongIndex === currentAlbum.songs.length -1 ? 1 : currentSongIndex + 2;
-    var $lastSongNumberCell = getSongNumberCell(lastSongNumber);
-    
-
-    // Set a new current song
-    // Update Ckpt-19-Assign... setSong
-    setSong(currentSongIndex + 1);
-    // Added line below as part of Ckpt-20
-    currentSoundFile.play();
-    // Added checkpoint-21
-    updateSeekBarWhileSongPlays();
-    //currentlyPlayingSongNumber = currentSongIndex + 1;
-    //currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
-
-    // Update the Player Bar information
-    updatePlayerBarSong();
-
-    $('.main-controls .play-pause').html(playerBarPauseButton);
-                            
-    //var $previousSongNumberCell = $('.song-item-number[data-song-number="' + currentlyPlayingSongNumber + '"]');
-    //var $lastSongNumberCell = $('.song-item-number[data-song-number="' + lastSongNumber + '"]');
-    
-    // Added Ckpt-19 Assignment getSongNumberCell(currentlyPlayingSongNumber);  
-    var $previousSongNumberCell = getSongNumberCell(currentlyPlayingSongNumber); 
-    //$('.song-item-number[data-song-number="' + currentlyPlayingSongNumber + '"]');   
-    var $lastSongNumberCell = getSongNumberCell(lastSongNumber); 
-    //$('.song-item-number[data-song-number="' + lastSongNumber + '"]');    
-    
-
-    $previousSongNumberCell.html(pauseButtonTemplate);
-    $lastSongNumberCell.html(lastSongNumber);
-};
-   
-*/
-
 
 
 // Added Ckpt-20-assignment-toggle #2
