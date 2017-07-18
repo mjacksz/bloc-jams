@@ -168,9 +168,8 @@ var clickHandler = function() {
      }
  }      // End of updateSeekBarWhileSongPlays function
 
- //
+ 
  // Ckpt 21 Assignments
- //
  
      // Ckpt-21 Assignment #1   
      function setCurrentTimeInPlayerBar(currentTime)  {
@@ -295,8 +294,6 @@ var nextSong = function() {
     currentSongIndex++;
     if (currentSongIndex >= currentAlbum.songs.length) {
         currentSongIndex = 0;
-        // Added by myself..testing only
-        //console.log("currentSongIndex is: " + currentSongIndex);
     }
 
     // Next two lines added at suggestion of mentor
